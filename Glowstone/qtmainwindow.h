@@ -1,10 +1,10 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef QTMAINWINDOW_H
+#define QTMAINWINDOW_H
 
 #include "basetypes.h"
-#include "newoutputdialog.h"
+#include "qtnewoutputdialog.h"
 #include "ioifmanager.h"
-#include "oifuiedithandler.h"
+#include "qtoifuiedithandler.h"
 
 #include <string>
 #include <vector>
@@ -14,12 +14,12 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow {
+class qtMainWindow : public QMainWindow {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    qtMainWindow(QWidget *parent = nullptr);
+    ~qtMainWindow();
     void setup();
     ioifManager * ioif_manager;
     void ioifUpdate(int a, int b);
@@ -30,7 +30,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    NewOutputDialog new_output_dialog;
-    oifUiEditHandler oif_edit_handler;
+    qtNewOutputDialog new_output_dialog;
+    qtOifUiEditHandler oif_edit_handler;
 };
-#endif // MAINWINDOW_H
+#endif // QTMAINWINDOW_H

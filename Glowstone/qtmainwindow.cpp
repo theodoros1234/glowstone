@@ -1,19 +1,19 @@
-#include "mainwindow.h"
+#include "qtmainwindow.h"
 #include "ui_mainwindow.h"
 #include "basetypes.h"
 
 // Constructor
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
+qtMainWindow::qtMainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
 }
 
 // Destructor
-MainWindow::~MainWindow() {
+qtMainWindow::~qtMainWindow() {
     delete ui;
 }
 
 // Finishes setting internal objects and pointers. Should be called right after the code that creates this object finishes setting pointers.
-void MainWindow::setup() {
+void qtMainWindow::setup() {
     // Passes pointers to interface managers and handlers to children
     oif_edit_handler.ioif_manager = ioif_manager;
     new_output_dialog.oif_edit_handler = &oif_edit_handler;
@@ -23,12 +23,12 @@ void MainWindow::setup() {
 }
 
 // When the user clicks the add output button, it shows the new output dialog.
-void MainWindow::on_outputAddButton_clicked() {
+void qtMainWindow::on_outputAddButton_clicked() {
     new_output_dialog.show();
 }
 
 // Adds new item to output list
-void MainWindow::addOutput(std::string name, std::string info) {
+void qtMainWindow::addOutput(std::string name, std::string info) {
     std::string final_label = name + "\n" + info; // Create label name
     //int pos = ui->outputList->count(); // Find position of list it will be placed in
     ui->outputList->addItem(final_label.c_str()); // Places label in list

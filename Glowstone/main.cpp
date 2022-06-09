@@ -1,5 +1,5 @@
-#include "mainwindow.h"
-#include "newoutputdialog.h"
+#include "qtmainwindow.h"
+#include "qtnewoutputdialog.h"
 #include "basetypes.h"
 #include "linuxserialoutput.h"
 #include "ioifmanager.h"
@@ -9,12 +9,12 @@
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
-    MainWindow window;
+    qtMainWindow window;
     ioifManager ioif_manager;
 
     // Connects objects between each other, where needed
     window.ioif_manager = &ioif_manager;
-    ioif_manager.gui = &window;
+    //ioif_manager.gui = &window;
 
     // Sets up objects, since we finished setting their pointers.
     window.setup();

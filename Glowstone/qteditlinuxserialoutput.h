@@ -1,5 +1,5 @@
-#ifndef EDITLINUXSERIALOUTPUT_H
-#define EDITLINUXSERIALOUTPUT_H
+#ifndef QTEDITLINUXSERIALOUTPUT_H
+#define QTEDITLINUXSERIALOUTPUT_H
 
 #include <QDialog>
 #include "ioifmanager.h"
@@ -10,13 +10,13 @@ namespace Ui {
 class EditLinuxSerialOutput;
 }
 
-class EditLinuxSerialOutput : public QDialog
+class qtEditLinuxSerialOutput : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit EditLinuxSerialOutput(QWidget *parent = nullptr);
-    ~EditLinuxSerialOutput();
+    explicit qtEditLinuxSerialOutput(QWidget *parent = nullptr);
+    ~qtEditLinuxSerialOutput();
     void trigger(linuxSerialOutput *item = nullptr);
     ioifManager * ioif_manager;
 
@@ -27,4 +27,4 @@ private:
     const std::filesystem::path devpath{"/dev"};
 };
 
-#endif // EDITLINUXSERIALOUTPUT_H
+#endif // QTEDITLINUXSERIALOUTPUT_H

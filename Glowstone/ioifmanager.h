@@ -11,7 +11,7 @@
 #include <vector>
 #include <string>
 
-class MainWindow;
+//class MainWindow;
 
 struct outputInterface {
     int type;
@@ -28,7 +28,7 @@ public:
     std::vector< std::pair<int,const char *> > avail_oif;
     std::vector<outputInterface*> oif_list;
 
-    MainWindow * gui;
+    //MainWindow * gui;
 };
 
 #endif // IOIFMANAGER_H

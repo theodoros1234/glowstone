@@ -9,28 +9,28 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    editlinuxserialoutput.cpp \
     ioifmanager.cpp \
     linuxserialoutput.cpp \
     main.cpp \
-    mainwindow.cpp \
-    newoutputdialog.cpp \
-    oifuiedithandler.cpp
+    qteditlinuxserialoutput.cpp \
+    qtmainwindow.cpp \
+    qtnewoutputdialog.cpp \
+    qtoifuiedithandler.cpp
 
 HEADERS += \
     baseoutputinterface.h \
     basetypes.h \
-    editlinuxserialoutput.h \
     ioifmanager.h \
     linuxserialoutput.h \
-    mainwindow.h \
-    newoutputdialog.h \
-    oifuiedithandler.h
+    qteditlinuxserialoutput.h \
+    qtmainwindow.h \
+    qtnewoutputdialog.h \
+    qtoifuiedithandler.h
 
 FORMS += \
-    editlinuxserialoutput.ui \
-    mainwindow.ui \
-    newoutputdialog.ui
+    qteditlinuxserialoutput.ui \
+    qtmainwindow.ui \
+    qtnewoutputdialog.ui
 
 CONFIG += c++17
 

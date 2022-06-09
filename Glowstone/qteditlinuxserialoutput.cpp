@@ -1,20 +1,20 @@
-#include "editlinuxserialoutput.h"
+#include "qteditlinuxserialoutput.h"
 #include "ui_editlinuxserialoutput.h"
 
 #include <string>
 
 // Constructor
-EditLinuxSerialOutput::EditLinuxSerialOutput(QWidget *parent) : QDialog(parent), ui(new Ui::EditLinuxSerialOutput) {
+qtEditLinuxSerialOutput::qtEditLinuxSerialOutput(QWidget *parent) : QDialog(parent), ui(new Ui::EditLinuxSerialOutput) {
     ui->setupUi(this);
 }
 
 // Destructor
-EditLinuxSerialOutput::~EditLinuxSerialOutput() {
+qtEditLinuxSerialOutput::~qtEditLinuxSerialOutput() {
     delete ui;
 }
 
 // Function to call when this dialog needs to be shown. Configures UI to match item being edited/added.
-void EditLinuxSerialOutput::trigger(linuxSerialOutput * item) {
+void qtEditLinuxSerialOutput::trigger(linuxSerialOutput * item) {
     std::string path;
     std::string title;
     int baud_rate = 115200;
@@ -41,7 +41,7 @@ void EditLinuxSerialOutput::trigger(linuxSerialOutput * item) {
 }
 
 // Scans for serial devices and populates list shown in the UI
-void EditLinuxSerialOutput::scanForDevices(std::string selected_device) {
+void qtEditLinuxSerialOutput::scanForDevices(std::string selected_device) {
     std::string path;
     // Array that contains prefixes that we consider to be valid for the serial devices we want to detect
     std::string accepted_prefixes[] = {
