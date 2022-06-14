@@ -1,5 +1,4 @@
-#include "qtmainwindow.h"
-#include "qtnewoutputdialog.h"
+#include "uiabstractionlayer.h"
 #include "basetypes.h"
 #include "linuxserialoutput.h"
 #include "ioifmanager.h"
@@ -9,18 +8,16 @@
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
-    qtMainWindow window;
+    uiAbstractionLayer ui;
     ioifManager ioif_manager;
 
     // Connects objects between each other, where needed
-    window.ioif_manager = &ioif_manager;
-    //ioif_manager.gui = &window;
+    ui.ioif_manager = &ioif_manager;
+    //ioif_manager.ui = &ui;
 
     // Sets up objects, since we finished setting their pointers.
-    window.setup();
+    ui.setup();
     //window.addOutput("/dev/ttyACM0 (active)","Linux Serial Output, 115200 baud");
 
-    // Shows main window
-    window.show();
     return app.exec();
 }

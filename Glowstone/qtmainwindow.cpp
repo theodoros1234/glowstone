@@ -1,5 +1,5 @@
 #include "qtmainwindow.h"
-#include "ui_mainwindow.h"
+#include "ui_qtmainwindow.h"
 #include "basetypes.h"
 
 // Constructor
@@ -20,11 +20,19 @@ void qtMainWindow::setup() {
 
     new_output_dialog.populate(ioif_manager->avail_oif); // Populates new item dialogs
     oif_edit_handler.setup(); // Sets up output interface edit handler, since we finished setting its pointers.
+    show(); // Shows window
 }
 
 // When the user clicks the add output button, it shows the new output dialog.
 void qtMainWindow::on_outputAddButton_clicked() {
     new_output_dialog.show();
+}
+
+// When the user clicks the remove output button, it removes the currently selected output.
+void qtMainWindow::on_outputRemoveButton_clicked() {
+    ioif_manager->removeOutput(ui->outputList->currentRow());
+    // Disable extra buttons on Output tab
+    outputButtonsSetEnabled(false);
 }
 
 // Adds new item to output list
@@ -43,3 +51,29 @@ void qtMainWindow::addOutput(std::string name, std::string info) {
     item->setIcon(icon); // Sets the pixmap as an icon for the item we added to the list
     */
 }
+
+// Edits item in output list
+void qtMainWindow::editOutput(int row, std::string name, std::string info) {
+    ui->outputList->item(row)->setText((name+"\n"+info).c_str());
+}
+
+// Removes item from output list
+void qtMainWindow::removeOutput(int row) {
+    delete ui->outputList->takeItem(row);
+}
+
+// Activate extra buttons on Output tab when an output is selected, or deactivate them when all outputs are removed.
+void qtMainWindow::on_outputList_itemSelectionChanged() {
+    outputButtonsSetEnabled(true);
+}
+
+void qtMainWindow::outputButtonsSetEnabled(bool state) {
+    ui->outputEditButton->setEnabled(state);
+    ui->outputActivateButton->setEnabled(state);
+    ui->outputRemoveButton->setEnabled(state);
+}
+
+void qtMainWindow::on_outputEditButton_clicked() {
+    oif_edit_handler.editOutput(ui->outputList->currentRow());
+}
+

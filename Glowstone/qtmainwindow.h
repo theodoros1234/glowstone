@@ -22,15 +22,21 @@ public:
     ~qtMainWindow();
     void setup();
     ioifManager * ioif_manager;
-    void ioifUpdate(int a, int b);
     void addOutput(std::string name, std::string info);
+    void editOutput(int row, std::string name, std::string info);
+    void removeOutput(int row);
 
 private slots:
     void on_outputAddButton_clicked();
+    void on_outputList_itemSelectionChanged();
+    void on_outputRemoveButton_clicked();
+
+    void on_outputEditButton_clicked();
 
 private:
     Ui::MainWindow *ui;
     qtNewOutputDialog new_output_dialog;
     qtOifUiEditHandler oif_edit_handler;
+    void outputButtonsSetEnabled(bool state);
 };
 #endif // QTMAINWINDOW_H

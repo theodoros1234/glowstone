@@ -12,20 +12,24 @@
 #include <unistd.h>
 
 // Constructor
-linuxSerialOutput::linuxSerialOutput(std::string p, int b) {
+linuxSerialOutput::linuxSerialOutput(int id, ioif_attr attributes) {
+    BaseOutputInterface::id = id;
+    BaseOutputInterface::type = IOIFTYPE_LINUXSERIALOUTPUT;
+    BaseOutputInterface::attributes = attributes;
     // Convert and store path as C string
-    path = new char[p.size()+1];
-    std::strcpy(path, p.c_str());
+    path = new char[attributes["path"].size()+1];
+    std::strcpy(path, attributes["path"].c_str());
     // Store baud rate
-    baud_rate = b;
+    baud_rate = std::stoi(attributes["baud_rate"]);
     printf("Created new linux serial output interface '%s' %i baud.\n",path,baud_rate);
 }
 
 // Destructor
 linuxSerialOutput::~linuxSerialOutput() {
+    printf("Deleting linux serial output interface '%s'.\n",path);
     // Deactivate if active
     if (state==OIFSTATE_ACTIVE || state==OIFSTATE_STARTING)
-        deactivate();
+        deactivate_internal();
     // Delete internal heap variables
     delete path;
 }
@@ -62,7 +66,7 @@ int linuxSerialOutput::connect() {
 // Activate module
 void linuxSerialOutput::activate() {
     // Make sure no other activation/deactivation function is running.
-    state_change_mutex.lock();
+    lock.lock();
     state = OIFSTATE_STARTING;
     // Try to connect to serial port
     int connect_errcode = connect();
@@ -70,20 +74,26 @@ void linuxSerialOutput::activate() {
     if (connect_errcode) {
         setError(connect_errcode);
         printf("Error opening serial port: %s\n",error_str);
-        state_change_mutex.unlock();
+        lock.unlock();
         deactivate(DEACTIVATE_REASON_ERROR);
         return;
     }
     // Otherwise, announce activation success
     printf("Linux serial output interface '%s' is ready to use.\n",path);
     state = OIFSTATE_ACTIVE;
-    state_change_mutex.unlock();
+    lock.unlock();
 }
 
 // Deactivate module
 void linuxSerialOutput::deactivate(int reason) {
+    deactivate_internal(reason);
+}
+
+void linuxSerialOutput::deactivate_internal(int reason) {
     // Make sure no other activation/deactivation function is running.
-    std::lock_guard<std::mutex> state_lock(state_change_mutex);
+    std::lock_guard<std::mutex> state_lock(lock);
+    if (state != OIFSTATE_ACTIVE && state != OIFSTATE_STARTING)
+        return;
     state = OIFSTATE_STOPPING;
     printf("Deactivating linux serial output interface '%s'",path);
     // Close serial port
@@ -111,10 +121,10 @@ void linuxSerialOutput::setError(int errnum) {
 
 // Set LED strip color mode
 void linuxSerialOutput::setMode(char m) {
+    std::lock_guard<std::mutex> guard(lock);
     mode = m;
     if (state==OIFSTATE_ACTIVE) {
         // Make sure no other function is currently sending data to serial port
-        std::lock_guard<std::mutex> guard(serial_port_mutex);
         // Construct command string that will be sent to the connected Arduino
         char cmd[2] = {'$',m};
         // Send data
@@ -124,10 +134,10 @@ void linuxSerialOutput::setMode(char m) {
 
 // Set LED strip color value
 void linuxSerialOutput::setColor(color_t c) {
+    std::lock_guard<std::mutex> guard(lock);
     color = c;
     if (state==OIFSTATE_ACTIVE) {
         // Make sure no other function is currently sending data to serial port
-        std::lock_guard<std::mutex> guard(serial_port_mutex);
         // Construct command string that will be sent to the connected Arduino
         char cmd[8];
         int cmd_length = 0;

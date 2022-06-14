@@ -1,8 +1,8 @@
 #ifndef QTNEWOUTPUTDIALOG_H
 #define QTNEWOUTPUTDIALOG_H
 
-#include "ioifmanager.h"
 #include "qtoifuiedithandler.h"
+#include <QPushButton>
 #include <QDialog>
 
 namespace Ui {
@@ -21,8 +21,11 @@ public:
 private slots:
     void on_buttonBox_accepted();
 
+    void on_list_itemSelectionChanged();
+
 private:
     Ui::NewOutputDialog *ui;
+    QPushButton * OKButton;
 };
 
 #endif // QTNEWOUTPUTDIALOG_H

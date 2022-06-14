@@ -4,12 +4,16 @@
 #include <ioifmanager.h>
 #include <qteditlinuxserialoutput.h>
 
+#include <map>
+
 class qtOifUiEditHandler {
 public:
     void setup();
-    void edit(void * item, int type);
+    void editOutput(int id);
+    void addOutput(int type);
     ioifManager * ioif_manager;
     qtEditLinuxSerialOutput linux_serial_output;
+private:
 };
 
 #endif // QTOIFUIEDITHANDLER_H

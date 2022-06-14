@@ -1,6 +1,7 @@
-#ifdef __linux__
+#define IOIFTYPE_LINUXSERIALOUTPUT 1
 #ifndef LINUXSERIALOUTPUT_H
 #define LINUXSERIALOUTPUT_H
+#ifdef __linux__
 
 #include "baseoutputinterface.h"
 
@@ -17,23 +18,22 @@
 class linuxSerialOutput : public BaseOutputInterface {
 public:
     const std::string if_type = "linuxSerialOutput";
-    int baud_rate;
 
-    linuxSerialOutput(std::string p, int b);
+    linuxSerialOutput(int id, ioif_attr attributes);
     ~linuxSerialOutput();
     void activate();
     void deactivate(int reason = DEACTIVATE_REASON_NONE);
     void setMode(char m);
     void setColor(color_t c);
-    char * path;
 private:
-    int serial_port;
-    std::mutex serial_port_mutex;
+    int serial_port, baud_rate;
+    char * path;
 
+    void deactivate_internal(int reason = DEACTIVATE_REASON_NONE);
     int connect();
     void setError(int errnum);
     struct termios tty;
 };
 
-#endif // LINUXSERIALOUTPUT_H
 #endif // __linux__
+#endif // LINUXSERIALOUTPUT_H

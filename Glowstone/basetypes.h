@@ -1,6 +1,11 @@
 #ifndef BASETYPES_H
 #define BASETYPES_H
 
+#include <map>
+#include <string>
+
+typedef std::map<std::string, std::string> ioif_attr;
+
 struct color_t {
     unsigned char r=0, g=0, b=0, v=0;
     color_t() {}

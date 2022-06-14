@@ -1,10 +1,16 @@
 #ifndef QTEDITLINUXSERIALOUTPUT_H
 #define QTEDITLINUXSERIALOUTPUT_H
 
-#include <QDialog>
 #include "ioifmanager.h"
+#include "linuxserialoutput.h"
+#include "basetypes.h"
 
+#include <QDialog>
+#include <QPushButton>
 #include <filesystem>
+#include <string>
+#include <vector>
+#include <map>
 
 namespace Ui {
 class EditLinuxSerialOutput;
@@ -17,13 +23,21 @@ class qtEditLinuxSerialOutput : public QDialog
 public:
     explicit qtEditLinuxSerialOutput(QWidget *parent = nullptr);
     ~qtEditLinuxSerialOutput();
-    void trigger(linuxSerialOutput *item = nullptr);
+    void trigger(int id, ioif_attr attributes);
     ioifManager * ioif_manager;
+
+private slots:
+    void on_buttonBox_accepted();
+
+    void on_list_itemSelectionChanged();
 
 private:
     void scanForDevices(std::string selected_device="");
-    Ui::EditLinuxSerialOutput *ui;
 
+    int id;
+    QPushButton * OKButton;
+    Ui::EditLinuxSerialOutput *ui;
+    std::vector<std::string> list_entries;
     const std::filesystem::path devpath{"/dev"};
 };
 
