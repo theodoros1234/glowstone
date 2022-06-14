@@ -19,8 +19,7 @@ public:
     qtOifUiEditHandler * oif_edit_handler;
 
 private slots:
-    void on_buttonBox_accepted();
-
+    void on_NewOutputDialog_accepted();
     void on_list_itemSelectionChanged();
 
 private:

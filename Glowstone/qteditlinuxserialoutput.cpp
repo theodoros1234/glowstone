@@ -104,7 +104,7 @@ void qtEditLinuxSerialOutput::scanForDevices(std::string selected_device) {
 }
 
 // Slot for when the OK button is pressed
-void qtEditLinuxSerialOutput::on_buttonBox_accepted() {
+void qtEditLinuxSerialOutput::on_EditLinuxSerialOutput_accepted() {
     ioif_attr attributes;
     // Get info set from UI
     attributes["path"] = list_entries[ui->list->currentRow()];

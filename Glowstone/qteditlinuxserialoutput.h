@@ -27,8 +27,7 @@ public:
     ioifManager * ioif_manager;
 
 private slots:
-    void on_buttonBox_accepted();
-
+    void on_EditLinuxSerialOutput_accepted();
     void on_list_itemSelectionChanged();
 
 private:

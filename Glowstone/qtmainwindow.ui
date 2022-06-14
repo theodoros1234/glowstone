@@ -21,7 +21,7 @@
     <item>
      <widget class="QTabWidget" name="tabs">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="presets">
        <attribute name="title">
@@ -256,5 +256,54 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>outputList</sender>
+   <signal>itemDoubleClicked(QListWidgetItem*)</signal>
+   <receiver>outputEditButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>652</x>
+     <y>104</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>754</x>
+     <y>93</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>inputList</sender>
+   <signal>itemDoubleClicked(QListWidgetItem*)</signal>
+   <receiver>inputEditButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>516</x>
+     <y>148</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>721</x>
+     <y>91</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>presetList</sender>
+   <signal>itemDoubleClicked(QListWidgetItem*)</signal>
+   <receiver>presetLoadButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>654</x>
+     <y>105</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>755</x>
+     <y>92</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

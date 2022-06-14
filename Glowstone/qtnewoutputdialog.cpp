@@ -20,7 +20,7 @@ void qtNewOutputDialog::populate(std::vector<std::pair<int, const char *> > &dev
 }
 
 // Slot for when "OK" button is pressed
-void qtNewOutputDialog::on_buttonBox_accepted() {
+void qtNewOutputDialog::on_NewOutputDialog_accepted() {
     // Asks Output Interface Edit Handler to find the appropriate dialog for the selected interface
     oif_edit_handler->addOutput(ui->list->currentRow());
 }
