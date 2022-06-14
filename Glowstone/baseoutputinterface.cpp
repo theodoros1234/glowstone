@@ -17,5 +17,5 @@ void BaseOutputInterface::setColor(color_t c) {
 }
 
 BaseOutputInterface::~BaseOutputInterface() {
-    printf("Base class of an output interface received a destruction signal. This should not happen, and will cause memory leaks.\n");
+    delete error_str;
 }
